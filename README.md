@@ -3,6 +3,11 @@
 ## Overview
 GHS Carnival is the annual college sports fest featuring multiple sports competitions between hostel blocks. This website serves as the central digital platform for live scores, schedules, team information, and official updates. Scores are updated manually through a secure admin panel by designated sport coordinators.
 
+This repo is scaffolded as:
+- `frontend/`: React (Vite) + TailwindCSS (no UI implemented)
+- `backend/`: FastAPI + Prisma Client Python
+- Database: Supabase Postgres (via `DATABASE_URL`)
+
 ---
 
 ## Objectives
@@ -185,13 +190,12 @@ Allow authorized individuals to manually update scores and manage match data.
 ## Technical Considerations
 
 ### Frontend
-- Mobile-first responsive UI
-- Read-only public views
-- Admin-only editable views
+- React (Vite) + TailwindCSS
+- Pages are placeholder route shells only (your designs can be wired in)
 
 ### Backend
-- Authentication and authorization
-- Real-time or near real-time data updates
+- FastAPI HTTP API
+- Prisma schema + generated Prisma client for Python
 
 ### Database Entities
 - Users (Admins)
@@ -216,3 +220,83 @@ Allow authorized individuals to manually update scores and manage match data.
 - Push notifications
 - Progressive Web App support
 - Admin mobile-optimized interface
+
+---
+
+## Local Development (Windows)
+
+### 0) Prereqs
+- Node.js 18+ (for Vite + Prisma CLI)
+- Python 3.10+
+
+### 1) Configure environment variables
+
+Create `backend/.env` from `backend/.env.example` and set:
+- `DATABASE_URL` to your Supabase Postgres connection string
+- `CORS_ORIGINS` to include `http://localhost:5173`
+
+Optionally also set `frontend/.env` with:
+- `VITE_API_BASE_URL=http://127.0.0.1:8000`
+
+### 2) Backend: install deps
+
+```powershell
+cd backend
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -U pip
+pip install -r requirements.txt
+```
+
+### 3) Backend: Prisma generate + migrate
+
+Prisma uses the schema at `backend/prisma/schema.prisma`.
+
+```powershell
+cd backend
+prisma generate
+# creates migrations and applies them (dev workflow)
+prisma migrate dev
+```
+
+### 4) Run backend
+
+```powershell
+cd backend
+.\.venv\Scripts\Activate.ps1
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+If you prefer running from `backend/app`:
+
+```powershell
+cd backend\app
+..\venv\Scripts\Activate.ps1
+uvicorn main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Health check: `GET http://127.0.0.1:8000/health`
+
+### 5) Frontend: install + run
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend routes (placeholders only):
+- `/` landing
+- `/live-scores`
+- `/teams`
+- `/hostel-blocks`
+- `/about`
+- `/guidelines`
+- `/admin/login`
+- `/admin`
+
+---
+
+## Notes
+- No UI has been implemented; only page shells and routing are provided.
+- Authentication/role enforcement is not implemented yet; admin endpoints are placeholders.

@@ -1,0 +1,27 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Env files
+.env
+.env.*
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+*.pdb
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Prisma generated (Python client code lives in `backend/app/db/prisma_client/`)
+backend/app/db/prisma_client/

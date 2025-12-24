@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-py"
+  output   = "../app/db/prisma_client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MatchStatus {
+  UPCOMING
+  LIVE
+  COMPLETED
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  SPORT_ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  role      UserRole @default(SPORT_ADMIN)
+  sportId   String?
+  sport     Sport?   @relation(fields: [sportId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Sport {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  slug        String  @unique
+  matches     Match[]
+  admins      User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Match {
+  id          String      @id @default(cuid())
+  sportId     String
+  sport       Sport       @relation(fields: [sportId], references: [id])
+
+  teamA       String
+  teamB       String
+
+  status      MatchStatus @default(UPCOMING)
+  startTime   DateTime?
+  venue       String?
+
+  // Flexible JSON for sport-specific scoring payloads
+  score       Json?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([sportId, status])
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  pinned    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
