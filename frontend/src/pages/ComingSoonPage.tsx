@@ -1,23 +1,10 @@
 export default function ComingSoonPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#fafafa] px-4 text-slate-900">
-      <div className="absolute inset-0">
-        {/* Soft gradient blurs */}
-        <div aria-hidden className="absolute -top-20 -left-20 h-96 w-96 rounded-full bg-gradient-to-br from-orange-300/40 to-orange-200/30 blur-3xl" />
-        <div aria-hidden className="absolute top-10 -right-32 h-80 w-80 rounded-full bg-gradient-to-bl from-orange-300/30 to-orange-200/20 blur-3xl" />
-        <div aria-hidden className="absolute bottom-32 -left-24 h-72 w-72 rounded-full bg-gradient-to-tr from-orange-300/35 to-amber-200/25 blur-3xl" />
-        <div aria-hidden className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-gradient-to-tl from-purple-300/30 to-violet-200/20 blur-3xl" />
-        
-        {/* Subtle geometric shapes */}
-        <svg className="absolute inset-0 h-full w-full opacity-[0.08]" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="hexagons" x="0" y="0" width="120" height="104" patternUnits="userSpaceOnUse">
-              <path d="M30 0 L90 0 L120 52 L90 104 L30 104 L0 52 Z" fill="none" stroke="currentColor" strokeWidth="1" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#hexagons)" />
-        </svg>
-      </div>
+    <main className="relative min-h-screen overflow-hidden px-4 text-slate-900">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(/Background.png)' }}
+      />
 
       <div className="relative flex min-h-screen items-center justify-center py-14">
         <div className="mx-auto w-full max-w-2xl text-center font-kdam">
