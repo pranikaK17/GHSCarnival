@@ -24,7 +24,7 @@ const AboutPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-[#FFFBEB] via-[#FFF7ED] to-[#FFEDD5] text-gray-800 font-sans pb-20 relative">
       
       {/* Logo in Top Left */}
-      <div className="absolute top-6 left-6 z-20">
+      <div className="absolute top-6 left-16 z-20">
         <img 
           src="./ghs_carnival_logo.png" 
           alt="GHS Carnival Logo" 
